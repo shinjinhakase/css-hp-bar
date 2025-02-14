@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>css-hp-bar</title>
+    <style>
+        .rectangle {
+            width: 200px;
+            height: 20px;
+            background-color: green;
+            transition: width 0.3s ease;
+        }
+    </style>
 </head>
 <body>
+    <div class="rectangle" id="rectangle"></div>
     <button id="increaseButton">増加</button>
     <button id="decreaseButton">減少</button>
-    <p>現在の数: <span id="count">0</span></p>
 
     <script>
-        let count = 0;
-        const countDisplay = document.getElementById("count");
+        let width = 200; // 初期幅
+        const rectangle = document.getElementById("rectangle");
 
         document.getElementById("increaseButton").addEventListener("click", function() {
-            count++;
-            countDisplay.textContent = count;
+            width += 20; // 20px ずつ増やす
+            rectangle.style.width = width + "px";
         });
 
         document.getElementById("decreaseButton").addEventListener("click", function() {
-            count--;
-            countDisplay.textContent = count;
+            width = Math.max(50, width - 20); // 50px以下にならないようにする
+            rectangle.style.width = width + "px";
         });
     </script>
 </body>
