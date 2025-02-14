@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css-hp-bar</title>
+</head>
+<body>
+    <button id="increaseButton">増加</button>
+    <button id="decreaseButton">減少</button>
+    <p>現在の数: <span id="count">0</span></p>
+
+    <script>
+        let count = 0;
+        const countDisplay = document.getElementById("count");
+
+        document.getElementById("increaseButton").addEventListener("click", function() {
+            count++;
+            countDisplay.textContent = count;
+        });
+
+        document.getElementById("decreaseButton").addEventListener("click", function() {
+            count--;
+            countDisplay.textContent = count;
+        });
+    </script>
+</body>
+</html>
