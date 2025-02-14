@@ -5,7 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>css-hp-bar</title>
     <style>
-        .rectangle {
+        .container {
+            position: relative;
+            width: 200px;
+            height: 20px;
+        }
+        .black-rectangle {
+            position: absolute;
+            width: 200px;
+            height: 20px;
+            background-color: black;
+        }
+        .green-rectangle {
+            position: absolute;
             width: 200px;
             height: 20px;
             background-color: green;
@@ -14,21 +26,24 @@
     </style>
 </head>
 <body>
-    <div class="rectangle" id="rectangle"></div>
+    <div class="container">
+        <div class="black-rectangle"></div>
+        <div class="green-rectangle" id="green-rectangle"></div>
+    </div>    
     <button id="increaseButton">増加</button>
     <button id="decreaseButton">減少</button>
 
     <script>
-        let width = 200; // 初期幅
-        const rectangle = document.getElementById("rectangle");
+        let width = 200;
+        const rectangle = document.getElementById("green-rectangle");
 
         document.getElementById("increaseButton").addEventListener("click", function() {
-            width += 20; // 20px ずつ増やす
+            width = Math.min(200, width + 20);
             rectangle.style.width = width + "px";
         });
 
         document.getElementById("decreaseButton").addEventListener("click", function() {
-            width = Math.max(50, width - 20); // 50px以下にならないようにする
+            width = Math.max(0, width - 20);
             rectangle.style.width = width + "px";
         });
     </script>
