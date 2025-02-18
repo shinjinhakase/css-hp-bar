@@ -4,70 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>css-hp-bar</title>
-    <style>
-        .container {
-            position: relative;
-            width: 200px;
-            height: 20px;
-        }
-        .black-bar {
-            position: absolute;
-            width: 200px;
-            height: 20px;
-            background-color: black;
-        }
-        .green-bar {
-            position: absolute;
-            width: 200px;
-            height: 20px;
-            background-color: green;
-        }
-        .purple-bar {
-            position: absolute;
-            width: 200px;
-            height: 20px;
-            background-color: purple;
-        }
-        .white-bar {
-            position: absolute;
-            width: 200px;
-            height: 20px;
-            background-color: white;
-        }
-        .animate {
-            transition: width 1.5s ease;
-        }
-
-        @keyframes damage-blink {
-            0% {
-                background-color: green;
-            }
-            50% {
-                background-color: red;
-            }
-            100% {
-                background-color: green;
-            }
-        }
-        .damage-blink {
-            animation: damage-blink 0.2s ease-in-out infinite;
-        }
-
-        @keyframes heal-blink {
-            0% {
-                background-color: green;
-            }
-            50% {
-                background-color: white;
-            }
-            100% {
-                background-color: green;
-            }
-        }
-        .heal-blink {
-            animation: heal-blink 0.6s ease-in-out infinite;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -78,61 +15,6 @@
     </div>    
     <button id="increaseButton">回復</button>
     <button id="decreaseButton">ダメージ</button>
-
-    <script>
-        let width = 200;
-        let damage = 30;
-        let heal = 20;
-        const green_bar = document.getElementById("green-bar");
-        const purple_bar = document.getElementById("purple-bar");
-        const white_bar = document.getElementById("white-bar");
-
-        function updateBarColor() {
-            let percentage = (width / 200) * 100;
-            if (percentage <= 25) {
-                green_bar.style.backgroundColor = "red";
-            } else if (percentage <= 50) {
-                green_bar.style.backgroundColor = "yellow";
-            } else {
-                green_bar.style.backgroundColor = "green";
-            }
-        }
-
-        document.getElementById("increaseButton").addEventListener("click", function() {
-            width = Math.min(200, width + heal);
-
-            green_bar.classList.add("animate");
-            purple_bar.classList.add("animate");
-            white_bar.classList.remove("animate");
-
-            green_bar.style.width = width + "px";
-            purple_bar.style.width = width + "px";
-            white_bar.style.width = width + "px";
-
-            updateBarColor();
-            green_bar.classList.add("heal-blink");
-            setTimeout(() => {
-                green_bar.classList.remove("heal-blink"); // 1秒後に点滅を止める
-            }, 1000);
-        });
-
-        document.getElementById("decreaseButton").addEventListener("click", function() {
-            width = Math.max(0, width - damage);
-
-            green_bar.classList.remove("animate");
-            purple_bar.classList.add("animate");
-            white_bar.classList.remove("animate");
-
-            green_bar.style.width = width + "px";
-            purple_bar.style.width = width + "px";
-            white_bar.style.width = width + "px";
-
-            updateBarColor();
-            green_bar.classList.add("damage-blink");
-            setTimeout(() => {
-                green_bar.classList.remove("damage-blink"); // 1秒後に点滅を止める
-            }, 300);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
