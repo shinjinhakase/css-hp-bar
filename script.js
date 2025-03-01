@@ -1,23 +1,48 @@
-let width = 200;
+const maxWidth = 200;
+let width = maxWidth;
+const maxHP = 200;
+let HP = maxHP;
 let damage = 30;
 let heal = 20;
 const green_bar = document.getElementById("green-bar");
 const purple_bar = document.getElementById("purple-bar");
 const white_bar = document.getElementById("white-bar");
 
+const HPPersentage = () => (HP / maxHP) * 100;
+
 function updateBarColor() {
-    let percentage = (width / 200) * 100;
-    if (percentage <= 25) {
+    if (HPPersentage() <= 25) {
         green_bar.style.backgroundColor = "red";
-    } else if (percentage <= 50) {
+    } else if (HPPersentage() <= 50) {
         green_bar.style.backgroundColor = "yellow";
     } else {
         green_bar.style.backgroundColor = "green";
     }
 }
 
+function animateNumber(target, start, end, duration) {
+    let current = start;
+    let draw_span = 50;
+    const step = (end - start) / (duration / draw_span); // draw_spanごとに1ずつ変わる
+    if (step == 0) return;
+
+    const interval = setInterval(() => {
+        current += step;
+        if ((step > 0 && current >= end) || (step < 0 && current <= end)) {
+            current = end; // 数値が目標値を超えないように
+            clearInterval(interval);
+        }
+        target.innerText = Math.round(current); // 数値を更新
+    }, draw_span); // draw_spanごとに更新
+}
+
 document.getElementById("increaseButton").addEventListener("click", function() {
-    width = Math.min(200, width + heal);
+    let currentHP = HP;
+    let nextHP = Math.min(maxHP, HP + heal);
+    animateNumber(document.getElementById("HPText"), currentHP, nextHP, 1000);
+    
+    HP = nextHP;
+    width = maxWidth * HPPersentage() / 100;
 
     green_bar.classList.add("animate");
     purple_bar.classList.add("animate");
@@ -35,7 +60,12 @@ document.getElementById("increaseButton").addEventListener("click", function() {
 });
 
 document.getElementById("decreaseButton").addEventListener("click", function() {
-    width = Math.max(0, width - damage);
+    let currentHP = HP;
+    let nextHP = Math.max(0, HP - damage);
+    animateNumber(document.getElementById("HPText"), currentHP, nextHP, 1000);
+
+    HP = nextHP;
+    width = maxWidth * HPPersentage() / 100;
 
     green_bar.classList.remove("animate");
     purple_bar.classList.add("animate");
