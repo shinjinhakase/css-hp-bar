@@ -16,7 +16,22 @@ function updateBarColor() {
     }
 }
 
+function animateNumber(target, start, end, duration) {
+    let current = start;
+    let draw_span = 50;
+    const step = (end - start) / (duration / draw_span); // draw_spanごとに1ずつ変わる
+    const interval = setInterval(() => {
+        current += step;
+        if ((step > 0 && current >= end) || (step < 0 && current <= end)) {
+            current = end; // 数値が目標値を超えないように
+            clearInterval(interval);
+        }
+        target.innerText = Math.round(current); // 数値を更新
+    }, draw_span); // draw_spanごとに更新
+}
+
 document.getElementById("increaseButton").addEventListener("click", function() {
+    animateNumber(document.getElementById("hpText"), width, width + heal, 1000);
     width = Math.min(200, width + heal);
 
     green_bar.classList.add("animate");
@@ -35,6 +50,7 @@ document.getElementById("increaseButton").addEventListener("click", function() {
 });
 
 document.getElementById("decreaseButton").addEventListener("click", function() {
+    animateNumber(document.getElementById("hpText"), width, width - damage, 1000);
     width = Math.max(0, width - damage);
 
     green_bar.classList.remove("animate");

@@ -1,3 +1,7 @@
+.hp-bar {
+    display: flex;
+}
+
 .container {
     position: relative;
     width: 200px;
